@@ -8,3 +8,4 @@ sources:
       - name: pizza_names
       - name: runners
       - name: pizza_toppings
+      - name: runner_ratings
