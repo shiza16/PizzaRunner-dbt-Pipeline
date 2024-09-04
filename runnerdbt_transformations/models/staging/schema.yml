@@ -1,0 +1,71 @@
+version: 2
+
+sources:
+  - name: staging
+    database: postgres
+    schema: pizza_runner
+
+    tables:
+      - name: customer_orders
+        description: "Table containing individual pizza orders from customers."
+        columns:
+          - name: order_id
+            description: "Unique identifier for each order."
+          - name: customer_id
+            description: "Identifier for the customer who placed the order."
+          - name: pizza_id
+            description: "Identifier for the type of pizza ordered."
+          - name: exclusions
+            description: "Ingredients to be excluded from the pizza."
+          - name: extras
+            description: "Additional ingredients to be added to the pizza."
+          - name: order_time
+            description: "Timestamp when the order was placed."
+
+      - name: pizza_names
+        description: "Table containing the names of the pizzas available."
+        columns:
+          - name: pizza_id
+            description: "Unique identifier for each pizza."
+          - name: pizza_name
+            description: "Name of the pizza."
+
+      - name: pizza_recipes
+        description: "Table containing the standard set of toppings for each pizza."
+        columns:
+          - name: pizza_id
+            description: "Unique identifier for each pizza."
+          - name: toppings
+            description: "Comma-separated list of topping_ids used in the pizza recipe."
+
+      - name: pizza_toppings
+        description: "Table containing the names of pizza toppings."
+        columns:
+          - name: topping_id
+            description: "Unique identifier for each topping."
+          - name: topping_name
+            description: "Name of the topping."
+
+      - name: runner_orders
+        description: "Table capturing the details of orders assigned to runners."
+        columns:
+          - name: order_id
+            description: "Unique identifier for each order."
+          - name: runner_id
+            description: "Identifier for the runner assigned to the order."
+          - name: pickup_time
+            description: "Timestamp when the runner picked up the order."
+          - name: distance
+            description: "Distance traveled by the runner to deliver the order."
+          - name: duration
+            description: "Duration of the delivery."
+          - name: cancellation
+            description: "Reason for cancellation if the order was cancelled."
+
+      - name: runners
+        description: "Table showing the registration dates for each runner."
+        columns:
+          - name: runner_id
+            description: "Unique identifier for each runner."
+          - name: registration_date
+            description: "Date when the runner registered."
