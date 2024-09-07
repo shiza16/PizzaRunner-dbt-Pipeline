@@ -25,3 +25,17 @@ Happy modeling!
 [0m15:14:56.297834 [debug] [MainThread]: Command `dbt init` succeeded at 15:14:56.296849 after 31.15 seconds
 [0m15:14:56.298834 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018403A03A50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018403172750>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000184035E5510>]}
 [0m15:14:56.300045 [debug] [MainThread]: Flushing usage events
+[0m15:20:51.204730 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C4A7E4AB10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C4A7E60790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C4A7E4B850>]}
+
+
+============================== 15:20:51.207693 | ea088e71-e372-4637-aed4-e78219b09cd5 ==============================
+[0m15:20:51.207693 [info ] [MainThread]: Running with dbt=1.6.2
+[0m15:20:51.209158 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'version_check': 'True', 'log_path': 'logs', 'debug': 'False', 'profiles_dir': 'C:\\Users\\HP\\.dbt', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'log_format': 'default', 'introspect': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'target_path': 'None', 'invocation_command': 'dbt build', 'send_anonymous_usage_stats': 'True'}
+[0m15:20:51.210089 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path D:\Vscode\python-dbt Projects\PizzaRunner-pipeline\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m15:20:51.212081 [debug] [MainThread]: Command `dbt build` failed at 15:20:51.211122 after 0.02 seconds
+[0m15:20:51.212081 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C4A8433C90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C4A79958D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C4A770BE90>]}
+[0m15:20:51.213080 [debug] [MainThread]: Flushing usage events
