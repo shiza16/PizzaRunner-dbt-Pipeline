@@ -7,7 +7,7 @@ Pizza consumption is a global phenomenon with over 115 million kilograms consume
 ## 🌟 Project Overview
 This project focuses on answering a series of case study questions related to Pizza Runner's operations using SQL and Python. The goal is to analyze customer orders, runner performance, and ingredient usage to provide actionable insights. The project covers pizza order metrics, customer and runner experience, ingredient optimization, pricing and ratings, and additional data management challenges.
 
-The analysis is performed using both SQL scripts and Python for comparison, allowing you to see how tasks can be accomplished using different languages. The SQL queries are designed for PostgreSQL, and the Python analysis uses `pandas` and other data manipulation libraries.
+The analysis is performed using both SQL scripts and Python for comparison, allowing you to see how tasks can be accomplished using different languages. The SQL queries are designed for PostgreSQL, and the Python analysis uses pandas and other data manipulation libraries.
 
 ### Available Data
 
@@ -26,8 +26,9 @@ The analysis is performed using both SQL scripts and Python for comparison, allo
 - **Bonus DML Challenges**: Tackle advanced database challenges such as adding new pizzas to the menu and modifying the data structure.
 
 ## 🛠️ Tools & Technologies
+- **Docker**: Containerize the entire data pipeline for consistency across environments.
 - **SQL**: Analyze data with efficient SQL queries for PostgreSQL.
-- **Python**: Use Python libraries (`pandas`, `numpy`, `matplotlib`) to replicate SQL tasks and analyze data.
+- **Python**: Use Python libraries (`pandas`, `numpy`) to replicate SQL tasks and analyze data.
 - **dbt**: Automate data transformations and manage models using dbt for PostgreSQL databases.
 - **Jupyter Notebooks**: Document and execute Python analysis in an interactive environment.
 - **PostgreSQL**: The relational database system used for SQL queries and analysis.
@@ -37,11 +38,11 @@ The analysis is performed using both SQL scripts and Python for comparison, allo
 - **Data Transformation with dbt**: Structuring data transformations using dbt models.
 - **SQL Query Optimization**: Writing efficient SQL queries to retrieve and transform data.
 - **Python Data Analysis**: Replicating SQL tasks using Python to demonstrate versatility in data analysis tools.
-- **Data Visualization**: Visualizing trends and results in Python using `matplotlib` and `seaborn`.
 
 ## 🚀 Project Structure
 
 ### Architecture Overview
+- **Docker**: Containerization of the development environment, including PostgreSQL, dbt, and Python.
 - **PostgreSQL**: Used as both the source and destination databases.
 - **SQL Analysis**: Data is analyzed using PostgreSQL queries stored in SQL scripts.
 - **Python Analysis**: Python notebooks replicate the SQL analysis using `pandas` for data manipulation and analysis.
@@ -58,6 +59,13 @@ The analysis is performed using both SQL scripts and Python for comparison, allo
 ```bash
 ## Folder Structure
 
+├── `elt_script`                               # ELT scripts and Docker configuration
+│   ├── `Dockerfile`                          # Dockerfile for the ELT environment
+│   ├── `requirements.txt`                    # Python dependencies for the ELT script
+│   ├── `elt_script.py`                       # Python script for ETL processes
+│   └── `notebooks/`                          # Jupyter Notebooks for Python analysis
+│       ├── `Pizzarunner_notebook.ipynb`          # Example notebook
+├── `docker-compose.yml`                      # Docker Compose configuration
 ├── `runnerdbt_transformations`               # dbt project files
 │   ├── `dbt_project.yml`                     # dbt project configuration
 │   ├── `macros`                              # Custom dbt macros for transformations
@@ -78,6 +86,7 @@ The analysis is performed using both SQL scripts and Python for comparison, allo
 │         ├── `sources.yml`                        # Source definitions for dbt models
 ├── `source_db_init`                         # Initialization scripts for the source database
 │   ├── `init.sql`                           # SQL file for initializing the source database
+
 ```
 ## How to Run
 ## Getting Started
@@ -85,60 +94,41 @@ The analysis is performed using both SQL scripts and Python for comparison, allo
 ### Prerequisites
 
 Ensure you have the following installed:
-- Python 3.10+
+- Python 3.11
 - PostgreSQL
 - dbt-core
 - dbt-postgres
 - Jupyter Notebooks
   
-1. **Set up Python Environment**:
-   - Create a virtual environment and activate it:
-     ```bash
-     python -m venv dbt-env
-     dbt-env\Scripts\activate
-     ```
-
-   - Install dbt core and dbt-postgres:
-     ```bash
-     pip install dbt-core dbt-postgres
-     ```
-
-   - Alternatively, for a specific version of dbt:
-     ```bash
-     pip install dbt-core==1.6.2 dbt-postgres==1.6.2
-     ```
-
-5. **Clone the Repository**:
+1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/shiza16/pizza-runner.git
-   cd pizza-runner
-
-6. **Initialize dbt**:
-   ```bash
-   dbt init
+   git clone https://github.com/shiza16/PizzaRunner-dbt-Pipeline.git
+   cd PizzaRunner-dbt-Pipeline
    ```
 
-7. **Configure dbt**:
-
-  Set up your profiles.yml to point to your PostgreSQL source and destination databases.
-
-5. **Run dbt Commands**:
-
-  - Debug: Check if the connection and configuration are correct.
-
+2. **Build and Run Docker Containers**:
    ```bash
-    dbt debug
+   docker-compose up --build
    ```
 
-  -Run Models: Execute your dbt models.
+3. **Accessing the Destination PostgreSQL Database via Docker**:
+   ```bash
+   docker exec -it pizzarunner-pipeline-destination_postgres-1 psql -U postgres destination_db
+   ```
+  - **Listing and Querying Tables**:
 
    ```bash
-    dbt run
+      destination_db: \dt
+      destination_db: SELECT * FROM runner_orders;
    ```
 
-  - Optional: Check if the sources are up-to-date.
+4. **Access Jupyter Notebooks**:
+   
+   Open your web browser and navigate to http://localhost:8888 to access Jupyter Notebooks.
+   Or run the below command to access the Jupyter notebook container.
+
    ```bash
-    dbt source freshness
+    docker exec -it pizzarunner-pipeline-jupyter-1/<container_name> bash
    ```
 
 ## DBT Models
