@@ -1,11 +1,14 @@
 ersion: 2
 
 sources:
-  - name: pizza_runner
-    database: postgres
-    schema: pizza_runner
+  - name: destination_db
+    database: destination_db
+    schema: public
     tables:
       - name: pizza_names
       - name: runners
       - name: pizza_toppings
       - name: runner_ratings
+      - name: customer_orders
+      - name: runner_orders
+      - name: pizza_recipes

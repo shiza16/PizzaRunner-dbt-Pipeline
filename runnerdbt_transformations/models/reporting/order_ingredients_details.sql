@@ -30,8 +30,8 @@ descriptive_order AS (
         END AS ingredient
     FROM {{ref('customer_orders_processed')}} co
     LEFT JOIN extras_and_exclusions ee ON co.order_id = ee.order_id
-    LEFT JOIN {{ source('pizza_runner', 'pizza_names')  }} pn ON co.pizza_id = pn.pizza_id 
-    LEFT JOIN {{source('pizza_runner','pizza_toppings')}} pt ON ee.item_value = pt.topping_id
+    LEFT JOIN {{ source('destination_db', 'pizza_names')  }} pn ON co.pizza_id = pn.pizza_id 
+    LEFT JOIN {{source('destination_db','pizza_toppings')}} pt ON ee.item_value = pt.topping_id
     GROUP BY co.order_id, pn.pizza_name, ee.item_type
 ),
 ordered_ingredients AS (

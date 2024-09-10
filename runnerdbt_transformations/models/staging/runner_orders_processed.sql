@@ -1,3 +1,7 @@
+{{ config(
+    materialized='table'
+) }}
+
 select 
 	 cast(order_id as integer) as order_id,
 	 cast(runner_id as integer) as runner_id,
@@ -14,4 +18,4 @@ select
 	 case when cancellation = 'null' then null 
 	 	  when cancellation = '' then null 
 	else cast(cancellation as varchar(75)) end
-from {{source('staging','runner_orders')}}
+from {{source('destination_db','runner_orders')}}

@@ -1,9 +1,13 @@
+{{ config(
+    materialized='table'
+) }}
+
 with cte_pizza_recipes as(
 SELECT
     pizza_id,
     toppings
 FROM
-    {{source('staging','pizza_recipes')}}
+    {{source('destination_db','pizza_recipes')}}
 )
 SELECT
     pizza_id::int as pizza_id,

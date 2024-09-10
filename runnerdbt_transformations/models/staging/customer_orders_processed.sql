@@ -1,3 +1,7 @@
+{{ config(
+    materialized='table'
+) }}
+
 with cte_customer_orders as(
  SELECT
 	order_id,
@@ -14,7 +18,7 @@ with cte_customer_orders as(
 	end AS extras,
 	order_time ,
 	row_number() over (partition by order_id, customer_id, pizza_id, order_time order by exclusions asc, extras asc) as rn
-  FROM {{source('staging','customer_orders')}}
+  FROM {{source('destination_db','customer_orders')}}
   )
  select 
         cast(order_id as integer) as order_id, 

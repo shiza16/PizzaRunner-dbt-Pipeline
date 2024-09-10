@@ -17,9 +17,9 @@ ingredients_list AS (
         END AS ingredient
     FROM {{ ref('customer_orders_processed') }} co
     LEFT JOIN exclusions_and_extras ee ON co.order_id = ee.order_id
-    LEFT JOIN {{source('pizza_runner', 'pizza_names')}}  pn ON co.pizza_id = pn.pizza_id
+    LEFT JOIN {{source('destination_db', 'pizza_names')}}  pn ON co.pizza_id = pn.pizza_id
     LEFT JOIN {{ ref('pizza_recipes_processed') }} npc ON co.pizza_id = npc.pizza_id
-    LEFT JOIN {{source('pizza_runner','pizza_toppings')}} pt ON npc.topping_id = pt.topping_id
+    LEFT JOIN {{source('destination_db','pizza_toppings')}} pt ON npc.topping_id = pt.topping_id
 ),
 final_ingredients_list AS (
     SELECT 

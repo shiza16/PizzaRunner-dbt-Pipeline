@@ -1,0 +1,5 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Mark notebooks to always use LF
+*.ipynb text eol=lf

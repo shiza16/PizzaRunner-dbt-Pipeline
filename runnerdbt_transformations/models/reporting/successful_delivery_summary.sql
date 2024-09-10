@@ -15,7 +15,7 @@ WITH delivery_info AS (
         ((ro.distance::float * 60) / ro.duration::float)::NUMERIC AS average_speed -- Average speed: distance (km) per minute
     FROM {{ ref('customer_orders_processed') }} co
     JOIN {{ ref('runner_orders_processed') }} ro ON co.order_id = ro.order_id  
-    JOIN {{ source('pizza_runner','runner_ratings') }} rr ON co.order_id = rr.order_id 
+    JOIN {{ source('destination_db','runner_ratings') }} rr ON co.order_id = rr.order_id 
     WHERE ro.cancellation IS NULL
 ),
 pizza_count AS (
@@ -24,7 +24,17 @@ pizza_count AS (
         COUNT(co.pizza_id) AS total_pizzas
     FROM {{ ref('customer_orders_processed') }} co
     GROUP BY co.order_id
-)
+),
+Extras_and_Exclusions AS
+(
+SELECT 
+    co.order_id, 
+    COALESCE(SUM(array_length(string_to_array(co.extras, ','), 1)), 0) as Extras,
+    COALESCE(SUM(array_length(string_to_array(co.exclusions, ','), 1)), 0) as Exclusions
+FROM 
+    customer_orders_processed co GROUP BY 
+    co.order_id
+    )
 SELECT 
     di.customer_id, 
     di.order_id, 
@@ -34,7 +44,8 @@ SELECT
     di.pickup_time, 
     di.time_between_order_and_pickup, 
     di.duration, 
-    di.average_speed, 
-    pc.total_pizzas
+    di.average_speed,
+    pc.total_pizzas, Extras, Exclusions
 FROM delivery_info di
 LEFT JOIN pizza_count pc ON di.order_id = pc.order_id
+left join Extras_and_Exclusions ee on di.order_id = ee.order_id

@@ -1,4 +1,3 @@
-SET search_path = pizza_runner;
 
 DROP TABLE IF EXISTS runners;
 CREATE TABLE runners (
